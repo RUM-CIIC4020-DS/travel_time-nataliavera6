@@ -24,6 +24,7 @@ public class Station {
 	public void setDistance(int distance) {
 		this.dist=distance;
 	}
+	
 
 	@Override
 	public boolean equals(Object obj) {
