@@ -25,6 +25,7 @@ public class TrainStationManager {
 	private Stack<Station> toVisit = new ArrayListStack<Station>();
 	private Set<Station> visited = new HashSet<Station>();
 	private Map<String,Integer>stationAmount=new HashTableSC<String,Integer>(10,new SimpleHashFunction<String>());
+	private Map<String,LinkedStack<String>>stops=new HashTableSC<String,LinkedStack<String>>(10,new SimpleHashFunction<String>());
 	public TrainStationManager(String station_file) {
 		
 		try (BufferedReader cities = new BufferedReader(new FileReader("./inputFiles/"+station_file))) {
@@ -79,13 +80,16 @@ public class TrainStationManager {
 			//if(!shortestRoute.getKeys().contains(i)) {shortestRoute.put(i, new Station("Westside",Integer.MAX_VALUE));}
 			  shortestRoute.put(i, new Station("Westside",Integer.MAX_VALUE));
 			  this.stationAmount.put(i, 2);
-		 }
+			  this.stops.put(i, new LinkedStack<String>());
+			  this.stops.get(i).push(i);
+		  }
 //		 this.toVisit = new ArrayListStack<Station>();
 //		 this.visited = new HashSet<Station>();
 		 
 		 toVisit.push(new Station("Westside",0));
 		 this.shortestRoute.put("Westside", new Station("Westside",0));
 		 this.stationAmount.put("Westside", 1);
+		 //this.stops.get("WestSide").push(new Station("Westside",0));
 		 
 //		 There’s another condition we could use to identify when we are done with the algorithm
 //		 instead of waiting for the stack to empty. This condition could be iterated until you visit
@@ -132,7 +136,10 @@ public class TrainStationManager {
 				 if(A>(B+C)) {
 					 this.shortestRoute.put(s.getCityName(),new Station(currentStation.getCityName(),B+C));
 					 if(!connected) {
-						 this.stationAmount.put(s.getCityName(), this.stationAmount.get(currentStation.getCityName())+1);}
+						 this.stationAmount.put(s.getCityName(), this.stationAmount.get(currentStation.getCityName())+1);
+						 this.stops.get(s.getCityName()).push(currentStation.getCityName());
+						// for()
+					 }
 					 
 				 }
 				
@@ -222,7 +229,22 @@ public class TrainStationManager {
 	 */
 	public String traceRoute(String stationName) {
 		// Remove if you implement the method, otherwise LEAVE ALONE
-		throw new UnsupportedOperationException();
+		//throw new UnsupportedOperationException();
+		Map<String,Station> route=this.getShortestRoutes();
+		LinkedStack<String> answer=new LinkedStack<String>();
+		String ret="";
+		answer.push(stationName);
+		
+		while(answer.top()!="Westside") {
+			answer.push(route.get(answer.top()).getCityName());
+		}
+		while(answer.size()>1) {
+			ret+=answer.pop();
+			ret+="->";
+		}
+		ret+=answer.pop();
+		return ret;
+		
 	}
 
 }
