@@ -102,7 +102,7 @@ public class TrainStationManager {
 			 Station currentStation=toVisit.pop();
 			 visited.add(currentStation);
 			 
-			 System.out.println(currentStation.getCityName());
+			// System.out.println(currentStation.getCityName());
 			 
 			 for(Station s:stations.get(currentStation.getCityName())) {
 				 boolean connected=true;
@@ -111,20 +111,20 @@ public class TrainStationManager {
 				 
 				 
 				
-				 System.out.println(s);
+				// System.out.println(s);
 				 //A:current shortest distance of neighbor
 				 int A=this.shortestRoute.get(s.getCityName()).getDistance();
 				
 				 //for(Station a:this.stations.get(s.getCityName())) {if(a.getDistance()<A) {A=a.getDistance();}}
 
-				 System.out.println("A: "+A);
+				// System.out.println("A: "+A);
 				 
 				 //B:shortest distance of current station
 				 int B = this.shortestRoute.get(currentStation.getCityName()).getDistance();
 				 
 				 //for(Station i:stations.get(currentStation.getCityName())) {if(i.getDistance() < B) {B = i.getDistance();}}
 		
-				 System.out.println("B: "+B);
+			//	 System.out.println("B: "+B);
 				 
 				
 				 //C:distance between current Station and neighbor
@@ -143,23 +143,23 @@ public class TrainStationManager {
 					 
 				 }
 				
-				 System.out.println("tovisit: "+visited.isMember(s));
+				// System.out.println("tovisit: "+visited.isMember(s));
 				 if(!visited.isMember(s)) {sortStack(s,this.toVisit);}
 				 
-				 System.out.println("tovisit: "+this.toVisit.size());
-				 System.out.println("C: "+C);
-				 System.out.println("B+C: "+(B+C));
-				 System.out.println("og: "+B);
-				 System.out.println("og+short: "+(s.getDistance()+this.shortestRoute.get(currentStation.getCityName()).getDistance()));
+//				 System.out.println("tovisit: "+this.toVisit.size());
+//				 System.out.println("C: "+C);
+//				 System.out.println("B+C: "+(B+C));
+//				 System.out.println("og: "+B);
+//				 System.out.println("og+short: "+(s.getDistance()+this.shortestRoute.get(currentStation.getCityName()).getDistance()));
 			 }
 		}
 ///////////////// ////////////////////////////////////////////////////
 		 
-		 System.out.println(shortestRoute.size());
-		 for(String name:shortestRoute.getKeys()) {
-			 System.out.println(name+" =("+shortestRoute.get(name).getCityName()+","+shortestRoute.get(name).getDistance());
-			 System.out.println("sa"+this.stationAmount.get(name));
-		 }
+		// System.out.println(shortestRoute.size());
+//		 for(String name:shortestRoute.getKeys()) {
+//			 System.out.println(name+" =("+shortestRoute.get(name).getCityName()+","+shortestRoute.get(name).getDistance());
+//			 System.out.println("sa"+this.stationAmount.get(name));
+//		 }
 	}
 
 	public void sortStack(Station station, Stack<Station> stackToSort) {
