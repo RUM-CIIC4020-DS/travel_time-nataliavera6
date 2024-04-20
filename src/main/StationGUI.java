@@ -2,18 +2,18 @@ package main;
 
 import java.awt.EventQueue;
 
-import javax.swing.JButton;
+//import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 //import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
+//import javax.swing.table.TableColumn;
 
 import interfaces.Map;
 
-import javax.swing.JLabel;
+//import javax.swing.JLabel;
 
 public class StationGUI extends JFrame {
 
@@ -91,12 +91,12 @@ public class StationGUI extends JFrame {
 //		button=new JButton("Press");
 		
 		
-		System.out.println(hoursmin(325,12.30));
+		//System.out.println(hoursmin(325,12.30));
 		
 	}
 	public double hoursmin(double time,double departure){
-		System.out.println(" ");
-		System.out.println("Start: "+time);
+		//System.out.println(" ");
+		//System.out.println("Start: "+time);
 		
 		//tiempo q se tarda en llegar
 		double hr=time/60;
@@ -106,19 +106,19 @@ public class StationGUI extends JFrame {
 		hr=Math.floor(hr);
 		
 		
-		System.out.println("hrs time: "+hr);
-		System.out.println("min time: "+min);
+		//System.out.println("hrs time: "+hr);
+		//System.out.println("min time: "+min);
 		
 		//hora de salida
 		double hrs=Math.floor(departure);
 		double mins=(departure-hrs)*100;
-		System.out.println("hrs departure: "+hrs);
-		System.out.println("min departure: "+mins);
+		//System.out.println("hrs departure: "+hrs);
+		//System.out.println("min departure: "+mins);
 		double arrivalHr=hr+hrs;
 		double arrivalmins=min+mins;
 		
-		System.out.println("hrs: "+arrivalHr);
-		System.out.println("min: "+arrivalmins);
+		//System.out.println("hrs: "+arrivalHr);
+		//System.out.println("min: "+arrivalmins);
 		if(arrivalmins<60) {return (arrivalHr)+((arrivalmins/100));}
 		if(arrivalmins==60) {return arrivalHr+1;}
 		else {
