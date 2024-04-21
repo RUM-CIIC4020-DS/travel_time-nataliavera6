@@ -8,22 +8,17 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
-//import javax.swing.table.DefaultTableModel;
-//import javax.swing.table.TableColumn;
 
 import interfaces.Map;
 
-//import javax.swing.JLabel;
 
 public class StationGUI extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	//public double hoursmin(int time,double departure);
+
 	private JPanel contentPane;
 	private JTable table;
-//	private TableColumn column;
-//	private JLabel label;
-//	private JButton button;
+
 	/**
 	 * Launch the application.
 	 */
@@ -51,7 +46,7 @@ public class StationGUI extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
-		//String[][] data = {{"Bugapest","9:35am"},{"Dubay","10:30am"},{"Berlint","8:25pm"},{"Mosbull","8:2"
+		//String[][] data = {{"Bugapest","9:35am"},{"Dubay","10:30am"},{"Berlint","8:25pm"},{"Mosbull","8:2"...
 		String[][] data=new String[12][3];
 		String[]columnName= {"Station","Departure","Arrival"};
 		double[] arrivals=new double[12];
@@ -62,8 +57,13 @@ public class StationGUI extends JFrame {
 		Map<String, Double> travel=tsm.getTravelTimes();
 		
 		for(int i=0;i<stations.length;i++) {
+			//travel time
 			double time=travel.get(stations[i]);
+			
+			//arrive = time of arrival in military time
 			double arrive=hoursmin(time,departure[i]);
+			
+			//if smaller than 12, am pm status doesnt change
 			if(arrive-12<=0) {arrivals[i]=arrive;}
 			
 			else {
@@ -75,6 +75,7 @@ public class StationGUI extends JFrame {
 				
 			}
 		}
+		//add arrival hrs to datalist
 		for(int i=0;i<stations.length;i++) {
 			int timeHr=(int) Math.floor(arrivals[i]);
 			int timeMin=(int) ((arrivals[i]-timeHr)*100);
@@ -82,51 +83,44 @@ public class StationGUI extends JFrame {
 			String[] dataList= {stations[i],departures[i],ar};
 			data[i]=dataList;
 		}
+		//insert data list
 		table=new JTable(data, columnName);
 
 		contentPane.add(table);
 		JScrollPane scrollPane = new JScrollPane(table);
 		contentPane.add(scrollPane);
 		
-//		button=new JButton("Press");
-		
-		
-		//System.out.println(hoursmin(325,12.30));
 		
 	}
 	public double hoursmin(double time,double departure){
-		//System.out.println(" ");
-		//System.out.println("Start: "+time);
 		
-		//tiempo q se tarda en llegar
+		//tiempo q se tarda en llegar en hrs y mins
 		double hr=time/60;
 		double min=(hr-Math.floor(hr));
 		min*=60;
 		
 		hr=Math.floor(hr);
 		
+
 		
-		//System.out.println("hrs time: "+hr);
-		//System.out.println("min time: "+min);
-		
-		//hora de salida
+		//hora de salida en hrs y mins
 		double hrs=Math.floor(departure);
 		double mins=(departure-hrs)*100;
-		//System.out.println("hrs departure: "+hrs);
-		//System.out.println("min departure: "+mins);
+
+		//arrival time in military time
 		double arrivalHr=hr+hrs;
 		double arrivalmins=min+mins;
-		
-		//System.out.println("hrs: "+arrivalHr);
-		//System.out.println("min: "+arrivalmins);
+
+		//if arrival mins arent more than an hr
 		if(arrivalmins<60) {return (arrivalHr)+((arrivalmins/100));}
+		
+		//if arrival mins are more than an hour
 		if(arrivalmins==60) {return arrivalHr+1;}
 		else {
-			//int arrivalmins=
+
 			return arrivalHr+hoursmin((int)arrivalmins,0.0);
 		}
-		//double hrA=arrival/60;
-		//return new double[]{hrD,minD};
+
 	}
 
 }
